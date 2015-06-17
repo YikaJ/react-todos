@@ -1,0 +1,69 @@
+body{
+    background: #f5f5f5;
+}
+
+header{
+    h1{
+        text-align: center;
+        text-decoration: underline;
+    }
+}
+
+.container{
+    width: 760px;
+    margin: 0 auto;
+}
+
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.clearfix:after{
+    content: "";
+    display: table;
+    height: 0;
+    clear: both;
+}
+
+.panel{
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 8px;
+    box-shadow: 1px 1px 1px #000;
+
+    .panel-header{
+        input{
+            width: 90%;
+            background: url("./svg/si-glyph-arrow-down.svg") no-repeat;
+            padding: 5px 5px;
+            padding-left: 50px;
+            font-size: 24px;
+            border: none;
+        }
+        border-bottom: 3px solid #ddd;
+    }
+}
+
+.todo-list{
+    list-style: none;
+    padding: 0;
+    li{
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+        font-size: 18px;
+
+        input[type=checkbox]{
+            margin-right: 10px;
+        }
+    }
+}
+
+.todo-footer{
+    margin-left: 10px;
+
+    input[type=checkbox]{
+        margin-right: 10px;
+    }
+}
