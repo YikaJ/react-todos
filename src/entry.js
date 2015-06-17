@@ -9,4 +9,4 @@ require('./main.scss');
 require('./components/App');
 
 // 引入SVG
-require('./svg/si-glyph-arrow-four-way.svg');
+require('./svg/si-glyph-baby.svg');
