@@ -15,14 +15,22 @@ class App extends React.Component {
         this.db = new LocalDb('React-Todos');
         this.state = {
             todos: this.db.get("todos") || [],
-            allChecked: false
+            isAllChecked: false
         };
     }
 
+    allChecked(){
+        let isAllChecked = false;
+        if(this.state.todos.every((todo)=> todo.isDone)){
+            isAllChecked = true;
+        }
+        this.setState({todos: this.state.todos, isAllChecked});
+    }
+
     addTodo(todoItem){
-        let todos = this.state.todos.concat(todoItem);
-        this.setState({todos: todos});
-        this.db.set('todos',todos);
+        this.state.todos.push(todoItem);
+        this.allChecked();
+        this.db.set('todos',this.state.todos);
     }
 
     changeTodoState(index, isDone, isChangeAll=false){
@@ -32,17 +40,11 @@ class App extends React.Component {
                     todo.isDone = isDone;
                     return todo;
                 }),
-                allChecked: isDone
+                isAllChecked: isDone
             })
         }else{
             this.state.todos[index].isDone = isDone;
-            //check isAllChecked
-            let allChecked = false;
-            if(this.state.todos.every((todo)=> todo.isDone)){
-                allChecked = true;
-            }
-            this.setState({todos: this.state.todos, allChecked});
-
+            this.allChecked();
         }
         this.db.set('todos', this.state.todos);
     }
@@ -69,7 +71,7 @@ class App extends React.Component {
             <div className="panel">
                 <TodoHeader addTodo={this.addTodo.bind(this)}/>
                 <TodoMain deleteTodo={this.deleteTodo.bind(this)} todos={this.state.todos} changeTodoState={this.changeTodoState.bind(this)}/>
-                <TodoFooter allChecked={this.state.allChecked} clearDone={this.clearDone.bind(this)} {...props} changeTodoState={this.changeTodoState.bind(this)}/>
+                <TodoFooter isAllChecked={this.state.isAllChecked} clearDone={this.clearDone.bind(this)} {...props} changeTodoState={this.changeTodoState.bind(this)}/>
             </div>
         )
     }

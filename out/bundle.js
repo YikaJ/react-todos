@@ -454,18 +454,29 @@
 	        this.db = new _localDb2["default"]("React-Todos");
 	        this.state = {
 	            todos: this.db.get("todos") || [],
-	            allChecked: false
+	            isAllChecked: false
 	        };
 	    }
 	
 	    _inherits(App, _React$Component);
 	
 	    _createClass(App, [{
+	        key: "allChecked",
+	        value: function allChecked() {
+	            var isAllChecked = false;
+	            if (this.state.todos.every(function (todo) {
+	                return todo.isDone;
+	            })) {
+	                isAllChecked = true;
+	            }
+	            this.setState({ todos: this.state.todos, isAllChecked: isAllChecked });
+	        }
+	    }, {
 	        key: "addTodo",
 	        value: function addTodo(todoItem) {
-	            var todos = this.state.todos.concat(todoItem);
-	            this.setState({ todos: todos });
-	            this.db.set("todos", todos);
+	            this.state.todos.push(todoItem);
+	            this.allChecked();
+	            this.db.set("todos", this.state.todos);
 	        }
 	    }, {
 	        key: "changeTodoState",
@@ -478,18 +489,11 @@
 	                        todo.isDone = isDone;
 	                        return todo;
 	                    }),
-	                    allChecked: isDone
+	                    isAllChecked: isDone
 	                });
 	            } else {
 	                this.state.todos[index].isDone = isDone;
-	                //check isAllChecked
-	                var allChecked = false;
-	                if (this.state.todos.every(function (todo) {
-	                    return todo.isDone;
-	                })) {
-	                    allChecked = true;
-	                }
-	                this.setState({ todos: this.state.todos, allChecked: allChecked });
+	                this.allChecked();
 	            }
 	            this.db.set("todos", this.state.todos);
 	        }
@@ -524,7 +528,7 @@
 	                { className: "panel" },
 	                _react2["default"].createElement(_TodoHeaderJs2["default"], { addTodo: this.addTodo.bind(this) }),
 	                _react2["default"].createElement(_TodoMainJs2["default"], { deleteTodo: this.deleteTodo.bind(this), todos: this.state.todos, changeTodoState: this.changeTodoState.bind(this) }),
-	                _react2["default"].createElement(_TodoFooterJs2["default"], _extends({ allChecked: this.state.allChecked, clearDone: this.clearDone.bind(this) }, props, { changeTodoState: this.changeTodoState.bind(this) }))
+	                _react2["default"].createElement(_TodoFooterJs2["default"], _extends({ isAllChecked: this.state.isAllChecked, clearDone: this.clearDone.bind(this) }, props, { changeTodoState: this.changeTodoState.bind(this) }))
 	            );
 	        }
 	    }]);
@@ -900,7 +904,7 @@
 	            return _react2["default"].createElement(
 	                "div",
 	                { className: "clearfix todo-footer" },
-	                _react2["default"].createElement("input", { checked: this.props.allChecked, onChange: this.handlerAllState.bind(this), type: "checkbox", className: "fl" }),
+	                _react2["default"].createElement("input", { checked: this.props.isAllChecked, onChange: this.handlerAllState.bind(this), type: "checkbox", className: "fl" }),
 	                _react2["default"].createElement(
 	                    "span",
 	                    { className: "fl" },
