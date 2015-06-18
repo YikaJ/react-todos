@@ -7,6 +7,3 @@ require('./main.scss');
 
 // 引入组件
 require('./components/App');
-
-// 引入SVG
-require('./svg/si-glyph-baby.svg');

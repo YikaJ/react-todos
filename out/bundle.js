@@ -66,9 +66,6 @@
 	
 	// 引入组件
 	__webpack_require__(/*! ./components/App */ 7);
-	
-	// 引入SVG
-	__webpack_require__(/*! ./svg/si-glyph-baby.svg */ 5);
 
 /***/ },
 /* 2 */
