@@ -4,24 +4,17 @@
 'use strict';
 export default class TodoItem extends React.Component{
 
-    constructor(){
-        super();
-        this.state = {
-            isShowDelete: false
-        }
-    }
-
     handlerChange(){
         let isDone = !this.props.isDone;
         this.props.changeTodoState(this.props.index, isDone);
     }
 
-    handlerMouseOver(e){
-        this.setState({isShowDelete: true});
+    handlerMouseOver(){
+        React.findDOMNode(this.refs.deleteBtn).style.display = "inline";
     }
 
-    handlerMouseOut(e){
-        this.setState({isShowDelete: false});
+    handlerMouseOut(){
+        React.findDOMNode(this.refs.deleteBtn).style.display = "none";
     }
 
     handlerDelete(){
@@ -29,7 +22,6 @@ export default class TodoItem extends React.Component{
     }
 
     render(){
-        let showStyle = this.state.isShowDelete ? {display: 'inline'} : {display: 'none'};
         let doneStyle = this.props.isDone ? {textDecoration: 'line-through'} : {textDecoration: 'none'};
 
         return (
@@ -39,7 +31,7 @@ export default class TodoItem extends React.Component{
             >
                 <input type="checkbox" checked={this.props.isDone} onChange={this.handlerChange.bind(this)}/>
                 <span style={doneStyle}>{this.props.text}</span>
-                <button onClick={this.handlerDelete.bind(this)} style={showStyle} className="fr">删除</button>
+                <button ref="deleteBtn" onClick={this.handlerDelete.bind(this)} style={{'display': 'none'}} className="fr">删除</button>
             </li>
         )
     }

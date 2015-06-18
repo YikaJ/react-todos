@@ -685,7 +685,7 @@
 	            return _react2["default"].createElement(
 	                "div",
 	                { className: "panel-header" },
-	                _react2["default"].createElement("input", { ref: "todoInput", onKeyUp: this.handlerKeyUp.bind(this), type: "text", placeholder: "what's your task ?" })
+	                _react2["default"].createElement("input", { onKeyUp: this.handlerKeyUp.bind(this), type: "text", placeholder: "what's your task ?" })
 	            );
 	        }
 	    }]);
@@ -771,74 +771,70 @@
 	/**
 	 * Created by YikaJ on 15/6/17.
 	 */
-	'use strict';
-	Object.defineProperty(exports, '__esModule', {
+	"use strict";
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 	
 	var TodoItem = (function (_React$Component) {
 	    function TodoItem() {
 	        _classCallCheck(this, TodoItem);
 	
-	        _get(Object.getPrototypeOf(TodoItem.prototype), 'constructor', this).call(this);
-	        this.state = {
-	            isShowDelete: false
-	        };
+	        if (_React$Component != null) {
+	            _React$Component.apply(this, arguments);
+	        }
 	    }
 	
 	    _inherits(TodoItem, _React$Component);
 	
 	    _createClass(TodoItem, [{
-	        key: 'handlerChange',
+	        key: "handlerChange",
 	        value: function handlerChange() {
 	            var isDone = !this.props.isDone;
 	            this.props.changeTodoState(this.props.index, isDone);
 	        }
 	    }, {
-	        key: 'handlerMouseOver',
-	        value: function handlerMouseOver(e) {
-	            this.setState({ isShowDelete: true });
+	        key: "handlerMouseOver",
+	        value: function handlerMouseOver() {
+	            React.findDOMNode(this.refs.deleteBtn).style.display = "inline";
 	        }
 	    }, {
-	        key: 'handlerMouseOut',
-	        value: function handlerMouseOut(e) {
-	            this.setState({ isShowDelete: false });
+	        key: "handlerMouseOut",
+	        value: function handlerMouseOut() {
+	            React.findDOMNode(this.refs.deleteBtn).style.display = "none";
 	        }
 	    }, {
-	        key: 'handlerDelete',
+	        key: "handlerDelete",
 	        value: function handlerDelete() {
 	            this.props.deleteTodo(this.props.index);
 	        }
 	    }, {
-	        key: 'render',
+	        key: "render",
 	        value: function render() {
-	            var showStyle = this.state.isShowDelete ? { display: 'inline' } : { display: 'none' };
-	            var doneStyle = this.props.isDone ? { textDecoration: 'line-through' } : { textDecoration: 'none' };
+	            var doneStyle = this.props.isDone ? { textDecoration: "line-through" } : { textDecoration: "none" };
 	
 	            return React.createElement(
-	                'li',
+	                "li",
 	                {
 	                    onMouseOver: this.handlerMouseOver.bind(this),
 	                    onMouseOut: this.handlerMouseOut.bind(this)
 	                },
-	                React.createElement('input', { type: 'checkbox', checked: this.props.isDone, onChange: this.handlerChange.bind(this) }),
+	                React.createElement("input", { type: "checkbox", checked: this.props.isDone, onChange: this.handlerChange.bind(this) }),
 	                React.createElement(
-	                    'span',
+	                    "span",
 	                    { style: doneStyle },
 	                    this.props.text
 	                ),
 	                React.createElement(
-	                    'button',
-	                    { onClick: this.handlerDelete.bind(this), style: showStyle, className: 'fr' },
-	                    '删除'
+	                    "button",
+	                    { ref: "deleteBtn", onClick: this.handlerDelete.bind(this), style: { "display": "none" }, className: "fr" },
+	                    "删除"
 	                )
 	            );
 	        }
@@ -847,8 +843,8 @@
 	    return TodoItem;
 	})(React.Component);
 	
-	exports['default'] = TodoItem;
-	module.exports = exports['default'];
+	exports["default"] = TodoItem;
+	module.exports = exports["default"];
 
 /***/ },
 /* 13 */

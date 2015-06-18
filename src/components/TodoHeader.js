@@ -24,7 +24,7 @@ class TodoHeader extends React.Component {
     render(){
         return (
             <div className="panel-header">
-                <input ref="todoInput" onKeyUp={this.handlerKeyUp.bind(this)} type="text" placeholder="what's your task ?"/>
+                <input onKeyUp={this.handlerKeyUp.bind(this)} type="text" placeholder="what's your task ?"/>
             </div>
         )
     }
