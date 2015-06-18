@@ -9,17 +9,16 @@ module.exports = {
         "./src/entry.js"
     ],
     output: {
-        path: path.join(__dirname, 'dest'),
-        publicPath: 'dest/',
+        path: path.join(__dirname, 'out'),
+        publicPath: './out/',
         filename: "bundle.js"
     },
     externals: {
-        'react': 'React',
-        'localDb': 'LocalDb'
+        'react': 'React'
     },
     module: {
         loaders: [
-            { test: /\.js$/, loader: "react-hot!jsx!babel", include: /src/},
+            { test: /\.js$/, loader: "jsx!babel", include: /src/},
             { test: /\.css$/, loader: "style!css"},
             { test: /\.scss$/, loader: "style!css!sass"},
             { test: /\.svg$/, loader: "url?limit=8192"}
