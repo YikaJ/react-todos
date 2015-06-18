@@ -6,6 +6,7 @@ import React from "react";
 
 class TodoHeader extends React.Component {
 
+    // 绑定键盘回车事件，添加新任务
     handlerKeyUp(event){
         if(event.keyCode === 13){
             let value = event.target.value;

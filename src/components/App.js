@@ -19,6 +19,7 @@ class App extends React.Component {
         };
     }
 
+    // 判断是否所有任务的状态都完成，同步底部的全选框
     allChecked(){
         let isAllChecked = false;
         if(this.state.todos.every((todo)=> todo.isDone)){
@@ -27,12 +28,14 @@ class App extends React.Component {
         this.setState({todos: this.state.todos, isAllChecked});
     }
 
+    // 添加任务，是传递给Header组件的方法
     addTodo(todoItem){
         this.state.todos.push(todoItem);
         this.allChecked();
         this.db.set('todos',this.state.todos);
     }
 
+    // 改变任务状态，传递给TodoItem和Footer组件的方法
     changeTodoState(index, isDone, isChangeAll=false){
         if(isChangeAll){
             this.setState({
@@ -49,13 +52,17 @@ class App extends React.Component {
         this.db.set('todos', this.state.todos);
     }
 
+    // 清除已完成的任务，传递给Footer组件的方法
     clearDone(){
+        let todos = this.state.todos.filter(todo => !todo.isDone);
         this.setState({
-            todos: this.state.todos.filter(todo => !todo.isDone)
+            todos: todos,
+            isAllChecked: false
         });
-        this.db.set('todos', this.state.todos);
+        this.db.set('todos', todos);
     }
 
+    // 删除当前的任务，传递给TodoItem的方法
     deleteTodo(index){
         this.state.todos.splice(index, 1);
         this.setState({todos: this.state.todos});

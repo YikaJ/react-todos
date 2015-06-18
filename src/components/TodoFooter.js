@@ -5,10 +5,12 @@
 import React from "react";
 export default class TodoFooter extends React.Component{
 
+    // 处理全选与全不选的状态
     handlerAllState(event){
         this.props.changeTodoState(null, event.target.checked, true);
     }
 
+    // 绑定点击事件，清除已完成
     handlerClick(){
         this.props.clearDone();
     }
